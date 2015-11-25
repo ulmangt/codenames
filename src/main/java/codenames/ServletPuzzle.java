@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.common.io.ByteStreams;
 
 /**
- * Simple test servlet which simply echos data sent to it.
  * @author ulman
  */
 public class ServletPuzzle extends HttpServlet

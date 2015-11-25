@@ -19,5 +19,7 @@ public class Run
         context.addServlet( new ServletHolder( new ServletAnswer( ) ), "/answer" );
 
         server.start( );
+        
+        System.out.println( WordDatabase.getWordList( ) );
     }
 }
