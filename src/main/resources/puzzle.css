@@ -1,0 +1,13 @@
+table, th, td {
+  font-size: 150%;
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+table {
+  height: 100%; width: 100%; position: absolute; top: 0; bottom: 0; left: 0; right: 0;
+}
+
+tr {
+  text-align: center;
+}

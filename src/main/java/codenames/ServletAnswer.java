@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 public class ServletAnswer extends HttpServlet
@@ -21,6 +22,9 @@ public class ServletAnswer extends HttpServlet
     
     private static final int defaultRows = 5;
     private static final int defaultCols = 5;
+    
+    private static final int defaultFirst = 9;
+    private static final int defaultSecond = 8;
     
     @Override
     protected void doGet( HttpServletRequest req, HttpServletResponse resp ) throws ServletException, IOException
@@ -34,6 +38,12 @@ public class ServletAnswer extends HttpServlet
         String colsString = req.getParameter( "cols" );
         int cols = colsString == null ? defaultCols : Integer.parseInt( colsString );
         
+        String firstString = req.getParameter( "first" );
+        int first = firstString == null ? defaultFirst : Integer.parseInt( firstString );
+        
+        String secondString = req.getParameter( "second" );
+        int second = secondString == null ? defaultSecond : Integer.parseInt( secondString );
+        
         int size = rows * cols;
         
         Random r = new Random( code );
@@ -46,24 +56,37 @@ public class ServletAnswer extends HttpServlet
             words.add( allWords.get( index ) );
         }
         
+        boolean redFirst = r.nextBoolean( );
+        int numRed = redFirst ? first : second;
+        int numBlue = !redFirst ? first : second;
+
+        LinkedHashSet<Integer> targetSet = Sets.newLinkedHashSet( );
+        
+        int numTargets = numRed + numBlue;
+        
+        while ( targetSet.size( ) < numTargets )
+        {
+            int index = r.nextInt( size );
+            targetSet.add( index );
+        }
+        
+        List<Integer> targetList = Lists.newArrayList( targetSet );
+        
+        List<Integer> redTargets = targetList.subList( 0, numRed );
+        List<Integer> blueTargets = targetList.subList( numRed, targetList.size( ) );
+
         try (BufferedWriter out = new BufferedWriter( new OutputStreamWriter( resp.getOutputStream( ) ) ))
         {
             out.write( "<!DOCTYPE html>" );
             out.write( "<html>" );
             out.write( "<head>" );
+            out.write( "  <script type=\"text/javascript\" src=\"puzzle.js\"></script>" );
+            out.write( "  <link rel=\"stylesheet\" type=\"text/css\" href=\"puzzle.css\">" );
             out.write( "  <title>Codenames</title>" );
-            out.write( "  <style>" );
-            out.write( "    table, th, td {" );
-            out.write( "      font-size: 150%;" );
-            out.write( "      border: 1px solid black;" );
-            out.write( "      border-collapse: collapse;" );
-            out.write( "    }" );
-            out.write( "    tr { text-align: center; }" );
-            out.write( "  </style>" );
             out.write( "</head>" );
             out.write( "<body>" );
             
-            out.write( "<table style=\"height: 100%; width: 100%; position: absolute; top: 0; bottom: 0; left: 0; right: 0;\">" );
+            out.write( "<table>" );
             
             Iterator<String> iter = words.iterator( );
             
