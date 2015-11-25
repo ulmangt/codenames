@@ -87,9 +87,9 @@ public class ServletAnswer extends HttpServlet
             out.write( "  <link rel=\"stylesheet\" type=\"text/css\" href=\"puzzle.css\">" );
             out.write( "  <title>Codenames</title>" );
             out.write( "</head>" );
-            out.write( "<body>" );
+            out.write( "<body onLoad=onLoad();>" );
             
-            out.write( "<table>" );
+            out.write( "<table id=\"gameGrid\">" );
             
             Iterator<String> iter = words.iterator( );
             int counter = 0;

@@ -3,6 +3,7 @@ table, th, td {
   font-size: 120%;
   border: 1px solid black;
   border-collapse: collapse;
+  cursor: pointer;
 }
 
 table {
