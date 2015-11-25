@@ -1,11 +1,29 @@
 table, th, td {
-  font-size: 150%;
+  table-layout: fixed;
+  font-size: 120%;
   border: 1px solid black;
   border-collapse: collapse;
 }
 
 table {
   height: 100%; width: 100%; position: absolute; top: 0; bottom: 0; left: 0; right: 0;
+}
+
+td.red {
+  background-color:red;
+}
+
+td.blue {
+  background-color:blue;
+}
+
+td.none {
+  background-color:gray;
+}
+
+td.bomb {
+  background-color:black;
+  color:white;
 }
 
 tr {

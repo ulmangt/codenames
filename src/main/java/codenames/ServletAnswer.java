@@ -59,10 +59,12 @@ public class ServletAnswer extends HttpServlet
         boolean redFirst = r.nextBoolean( );
         int numRed = redFirst ? first : second;
         int numBlue = !redFirst ? first : second;
-
+        int numBombs = 1;
+        
         LinkedHashSet<Integer> targetSet = Sets.newLinkedHashSet( );
         
-        int numTargets = numRed + numBlue;
+        // add 1 for the bomb
+        int numTargets = numRed + numBlue + numBombs;
         
         while ( targetSet.size( ) < numTargets )
         {
@@ -73,8 +75,9 @@ public class ServletAnswer extends HttpServlet
         List<Integer> targetList = Lists.newArrayList( targetSet );
         
         List<Integer> redTargets = targetList.subList( 0, numRed );
-        List<Integer> blueTargets = targetList.subList( numRed, targetList.size( ) );
-
+        List<Integer> blueTargets = targetList.subList( numRed, numRed + numBlue );
+        List<Integer> bombTargets = targetList.subList( numRed + numBlue, numRed + numBlue + numBombs );
+        
         try (BufferedWriter out = new BufferedWriter( new OutputStreamWriter( resp.getOutputStream( ) ) ))
         {
             out.write( "<!DOCTYPE html>" );
@@ -89,6 +92,7 @@ public class ServletAnswer extends HttpServlet
             out.write( "<table>" );
             
             Iterator<String> iter = words.iterator( );
+            int counter = 0;
             
             for ( int row = 0 ; row < rows ; row++ )
             {
@@ -96,7 +100,24 @@ public class ServletAnswer extends HttpServlet
                 
                 for ( int col = 0 ; col < cols ; col++ )
                 {
-                    out.write( String.format( "<td>%s</td>", iter.next( ) ) );
+                    String team = "none";
+                    
+                    if ( blueTargets.contains( counter ) )
+                    {
+                        team = "blue";
+                    }
+                    else if ( redTargets.contains( counter ) )
+                    {
+                        team = "red";
+                    }
+                    else if ( bombTargets.contains( counter ) )
+                    {
+                        team = "bomb";
+                    }
+                    
+                    out.write( String.format( "<td class=\"%s\">%s</td>", team, iter.next( ) ) );
+                
+                    counter++;
                 }
                 
                 out.write( "</tr>" );
