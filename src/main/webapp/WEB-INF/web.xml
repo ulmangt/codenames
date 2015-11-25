@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+    version="2.4">
+
+    <display-name>Codenames</display-name>
+    <description>
+    	A simple web-based word game.
+    </description>
+
+    <servlet>
+        <servlet-name>Codenames-Puzzle</servlet-name>
+        <servlet-class>codenames.ServletPuzzle</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Codenames-Puzzle</servlet-name>
+        <url-pattern>/puzzle</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Codenames-Answer</servlet-name>
+        <servlet-class>codenames.ServletAnswer</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Codenames-Answer</servlet-name>
+        <url-pattern>/answer</url-pattern>
+    </servlet-mapping>
+
+</web-app>
