@@ -9,20 +9,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.common.io.ByteStreams;
-
 public class ServletAnswer extends HttpServlet
 {
     private static final long serialVersionUID = 1L;
 
     @Override
-    protected void doPost( HttpServletRequest req, HttpServletResponse resp ) throws ServletException, IOException
+    protected void doGet( HttpServletRequest req, HttpServletResponse resp ) throws ServletException, IOException
     {
-        String requestString = new String( ByteStreams.toByteArray( req.getInputStream( ) ) );
 
-        try ( BufferedWriter out = new BufferedWriter( new OutputStreamWriter( resp.getOutputStream( ) ) ) )
+        System.out.println( req.getParameter( "code" ) );
+        
+        int code = Integer.parseInt( req.getParameter( "code" ) );
+
+        try (BufferedWriter out = new BufferedWriter( new OutputStreamWriter( resp.getOutputStream( ) ) ))
         {
-            out.write( requestString );
+            out.write( "<!DOCTYPE html>" );
+            out.write( "<html>" );
+            out.write( "<head>" );
+            out.write(   "<title>Codenames</title>" );
+            out.write( "</head>" );
+            out.write( "<body>" );
+            out.write( String.valueOf( code ) );
+            out.write( "</body>" );
+            out.write( "</html>" );
+            
+            out.write( code );
         }
     }
 }
