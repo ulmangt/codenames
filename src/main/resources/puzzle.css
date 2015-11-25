@@ -16,6 +16,7 @@ td.red.clicked {
 
 td.blue.clicked {
   background-color:blue;
+  color:white;
 }
 
 td.none.clicked {

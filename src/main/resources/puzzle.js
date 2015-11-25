@@ -12,7 +12,9 @@ if ( gameGrid != null ) {
             cell.onclick = (function (i, j) {
             
                 return function ( ) {
-                    $(this).toggleClass( "clicked" );
+                    !$(this).hasClass( "answer" ) {
+                    	$(this).toggleClass( "clicked" );
+                    }
                 };
                 
             }(i, j));

@@ -121,7 +121,7 @@ public class ServletAnswer extends HttpServlet
                     
                     if ( showAnswers )
                     {
-                        team += " clicked";
+                        team += " clicked answer";
                     }
                     
                     out.write( String.format( "<td class=\"%s\">%s</td>", team, iter.next( ) ) );
