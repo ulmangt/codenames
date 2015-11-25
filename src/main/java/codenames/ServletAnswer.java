@@ -44,6 +44,9 @@ public class ServletAnswer extends HttpServlet
         String secondString = req.getParameter( "second" );
         int second = secondString == null ? defaultSecond : Integer.parseInt( secondString );
         
+        String showAnswersString = req.getParameter( "answers" );
+        boolean showAnswers = showAnswersString != null;
+        
         int size = rows * cols;
         
         Random r = new Random( code );
@@ -114,6 +117,11 @@ public class ServletAnswer extends HttpServlet
                     else if ( bombTargets.contains( counter ) )
                     {
                         team = "bomb";
+                    }
+                    
+                    if ( showAnswers )
+                    {
+                        team += " clicked";
                     }
                     
                     out.write( String.format( "<td class=\"%s\">%s</td>", team, iter.next( ) ) );

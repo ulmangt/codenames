@@ -12,21 +12,7 @@ if ( gameGrid != null ) {
             cell.onclick = (function (i, j) {
             
                 return function ( ) {
-                    if ( $(this).hasClass( "red" ) ) {
-                        $(this).toggleClass( "red-clicked" );
-                    }
-                    
-                    if ( $(this).hasClass( "blue" ) ) {
-                        $(this).toggleClass( "blue-clicked" );
-                    }
-                    
-                    if ( $(this).hasClass( "none" ) ) {
-                        $(this).toggleClass( "none-clicked" );
-                    }
-                    
-                    if ( $(this).hasClass( "bomb" ) ) {
-                        $(this).toggleClass( "bomb-clicked" );
-                    }
+                    $(this).toggleClass( "clicked" );
                 };
                 
             }(i, j));
